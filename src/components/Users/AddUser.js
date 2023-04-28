@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Card from '../UI/Card';
 import Button from '../UI/Button';
 import classes from './AddUser.module.css';
+import ErrorModal from '../UI/ErrorModal';
 
 const AddUser = (props) => {
   const [enteredUsernameState, setEnteredUsernameState] = useState('');
@@ -17,6 +18,8 @@ const AddUser = (props) => {
     if (+enteredUserAgeState < 1){
       return;
     }
+    // This is pulling the onAddUser function via props from App.js
+    props.onAddUser(enteredUsernameState, enteredUserAgeState);
     console.log('clicked')
     console.log(enteredUsernameState, enteredUserAgeState)
     // These next two lines were added as a way to clear the form. After this funciton is called, it returns the set state function to an empty string. It works in conjuction with the JSX below, where we set the value of the input to the set State function. 
@@ -31,15 +34,18 @@ const AddUser = (props) => {
   }
 
   return (
-    <Card className={classes.input}>
-      <form onSubmit={addUserHandler}>
-        <label htmlFor="username">Username</label>
-        <input id="username" type="text" value={enteredUsernameState} onChange={userNameChangeHandler}/>
-        <label htmlFor="age">Age (Years)</label>
-        <input id="age" type="number" value={enteredUserAgeState} onChange={userAgeChangeHandler}/>
-        <Button type="submit">Add User</Button>
-      </form>
-    </Card>
+    <div>
+      <ErrorModal title="uh oh" message="blooh" />
+      <Card className={classes.input}>
+        <form onSubmit={addUserHandler}>
+          <label htmlFor="username">Username</label>
+          <input id="username" type="text" value={enteredUsernameState} onChange={userNameChangeHandler}/>
+          <label htmlFor="age">Age (Years)</label>
+          <input id="age" type="number" value={enteredUserAgeState} onChange={userAgeChangeHandler}/>
+          <Button type="submit">Add User</Button>
+        </form>
+      </Card>
+    </div>
   );
 };
 
