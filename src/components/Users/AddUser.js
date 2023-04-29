@@ -11,7 +11,6 @@ const AddUser = (props) => {
   const [errorState, setErrorState] = useState();
   const addUserHandler = (event) => {
     event.preventDefault();
-    // The following are the validation conditionals. trim() removes all white space, and length checks the length. If either are equal to 0 then it returns nothing
     if(enteredUsernameState.trim().length === 0 || enteredUserAgeState.trim().length === 0) {
       setErrorState({
         title: 'Invalid',
@@ -19,7 +18,6 @@ const AddUser = (props) => {
       });
       return;
     }
-    // The '+' in front is a javascript shorthand that checks to see if the variable is a number. Otherwise, it would check for string data
     if (+enteredUserAgeState < 1){
       setErrorState({
         title: 'Also invalid',
@@ -27,11 +25,8 @@ const AddUser = (props) => {
       })
       return;
     }
-    // This is pulling the onAddUser function via props from App.js
     props.onAddUser(enteredUsernameState, enteredUserAgeState);
-    console.log('clicked')
-    console.log(enteredUsernameState, enteredUserAgeState)
-    // These next two lines were added as a way to clear the form. After this funciton is called, it returns the set state function to an empty string. It works in conjuction with the JSX below, where we set the value of the input to the set State function. 
+
     setEnteredUserAgeState('');
     setEnteredUsernameState('');
   };
